@@ -18,7 +18,6 @@ public class UserDetailsServiceCustom implements UserDetails{
     public UserDetailsServiceCustom(User user) {
         this.username = user.getUsername(); // Assuming 'username' is used as 'username'
         this.password = user.getPassword();
-        System.err.println(user.getRole().getName());
         this.authorities = List.of(user.getRole().getName())
                 .stream()
                 .map(SimpleGrantedAuthority::new)

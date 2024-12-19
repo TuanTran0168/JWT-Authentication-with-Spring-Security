@@ -1,4 +1,4 @@
-package com.tuantran.jwt_authentication.request;
+package com.tuantran.jwt_authentication.payload.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
