@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tuantran.jwt_authentication.entity.User;
-import com.tuantran.jwt_authentication.request.AddUserRequest;
-import com.tuantran.jwt_authentication.request.AuthRequest;
+import com.tuantran.jwt_authentication.payload.request.AddUserRequest;
+import com.tuantran.jwt_authentication.payload.request.AuthRequest;
 import com.tuantran.jwt_authentication.service.JwtService;
 import com.tuantran.jwt_authentication.service.UserService;
 import com.tuantran.jwt_authentication.service.implement.RoleServiceImplement;
@@ -45,8 +45,6 @@ public class UserController {
         user.setName(addUserRequest.getName());
         user.setUsername(addUserRequest.getUsername());
         user.setPassword(addUserRequest.getPassword());
-        System.out.println("==============================================================");
-        System.out.println(addUserRequest.getRole_id());
         user.setRole(roleServiceImplement.findById(Integer.parseInt(addUserRequest.getRole_id())));
         return service.addUser(user);
     }

@@ -1,4 +1,4 @@
-package com.tuantran.jwt_authentication.filter;
+package com.tuantran.jwt_authentication.configs.Security.filter;
 
 import java.io.IOException;
 
