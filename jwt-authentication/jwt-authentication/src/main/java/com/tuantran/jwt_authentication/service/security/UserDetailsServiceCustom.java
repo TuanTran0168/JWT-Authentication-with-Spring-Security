@@ -1,4 +1,4 @@
-package com.tuantran.jwt_authentication.service;
+package com.tuantran.jwt_authentication.service.security;
 
 import java.util.Collection;
 import java.util.List;
@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.tuantran.jwt_authentication.entity.User;
 
-public class UserDetailsServiceCustom implements UserDetails{
+public class UserDetailsServiceCustom implements UserDetails {
     private String username; // Changed from 'name' to 'username' for clarity
     private String password;
     private List<GrantedAuthority> authorities;

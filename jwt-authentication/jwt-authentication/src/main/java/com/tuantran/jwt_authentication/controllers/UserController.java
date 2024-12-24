@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tuantran.jwt_authentication.entity.User;
 import com.tuantran.jwt_authentication.payload.request.AddUserRequest;
 import com.tuantran.jwt_authentication.payload.request.AuthRequest;
-import com.tuantran.jwt_authentication.service.JwtService;
 import com.tuantran.jwt_authentication.service.UserService;
 import com.tuantran.jwt_authentication.service.implement.RoleServiceImplement;
+import com.tuantran.jwt_authentication.service.security.JwtService;
 
 @RestController
 @RequestMapping("/auth")
@@ -64,8 +64,7 @@ public class UserController {
     @PostMapping("/generateToken")
     public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
         Authentication authentication = authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
-        );
+                new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
         if (authentication.isAuthenticated()) {
             return jwtService.generateToken(authRequest.getUsername());
         } else {
