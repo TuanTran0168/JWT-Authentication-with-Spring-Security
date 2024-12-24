@@ -14,11 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ProblemDetail handleSecurityException(Exception exception) {
-        System.out.println("handleSecurityException" + String.valueOf(exception instanceof ExpiredJwtException));
         ProblemDetail errorDetail = null;
-
-        // TODO send this stack trace to an observability tool
-        exception.printStackTrace();
 
         if (exception instanceof BadCredentialsException) {
             errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(401), exception.getMessage());
@@ -52,7 +48,6 @@ public class GlobalExceptionHandler {
             errorDetail.setProperty("description", "Unknown internal server error.");
         }
 
-        System.out.println(errorDetail);
         return errorDetail;
     }
 }

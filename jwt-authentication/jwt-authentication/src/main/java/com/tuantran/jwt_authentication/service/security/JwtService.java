@@ -20,7 +20,8 @@ import javax.crypto.SecretKey;
 @Component
 public class JwtService {
 
-    // Replace this with a secure key in a real application, ideally fetched from environment variables
+    // Replace this with a secure key in a real application, ideally fetched from
+    // environment variables
     @Value("${tuantran.app.jwtSecret}")
     private String SECRET;
 
@@ -69,12 +70,11 @@ public class JwtService {
 
     // Extract all claims from the token
     private Claims extractAllClaims(String token) {
-        System.err.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         return Jwts.parser()
-                    .verifyWith(getSignKey())
-                    .build()
-                    .parseSignedClaims(token)
-                    .getPayload();
+                .verifyWith(getSignKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
     }
 
     // Check if the token is expired

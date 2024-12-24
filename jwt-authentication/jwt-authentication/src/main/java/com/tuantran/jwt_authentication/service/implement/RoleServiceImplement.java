@@ -20,5 +20,5 @@ public class RoleServiceImplement implements RoleService {
         Optional<Role> role = roleRepository.findById(id);
         return role.orElse(null);
     }
-    
+
 }

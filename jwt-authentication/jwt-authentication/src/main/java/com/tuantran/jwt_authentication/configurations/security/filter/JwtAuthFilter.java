@@ -1,4 +1,4 @@
-package com.tuantran.jwt_authentication.configs.security.filter;
+package com.tuantran.jwt_authentication.configurations.security.filter;
 
 import java.io.IOException;
 
@@ -10,21 +10,30 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.tuantran.jwt_authentication.exception.JwtAuthenticationException;
+import com.tuantran.jwt_authentication.exception.handler.CustomAuthenticationFailureHandler;
 import com.tuantran.jwt_authentication.service.UserService;
 import com.tuantran.jwt_authentication.service.security.JwtService;
 
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 
 @Component
+@RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
     @Autowired
     private JwtService jwtService;
 
     @Autowired
     private UserService userDetailsService;
+
+    @Autowired
+    private final CustomAuthenticationFailureHandler authenticationFailureHandler;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -58,6 +67,16 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
             // Continue the filter chain
             filterChain.doFilter(request, response);
+        } catch (SignatureException e) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            authenticationFailureHandler.onAuthenticationFailure(request, response,
+                    new JwtAuthenticationException("The JWT signature is invalid"));
+            return; // Stop further processing of the filter chain
+        } catch (ExpiredJwtException e) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            authenticationFailureHandler.onAuthenticationFailure(request, response,
+                    new JwtAuthenticationException("The JWT token has expired"));
+            return; // Stop further processing of the filter chain
         } catch (Exception e) {
             throw e;
         }
