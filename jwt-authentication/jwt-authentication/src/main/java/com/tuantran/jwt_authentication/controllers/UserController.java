@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tuantran.jwt_authentication.entity.User;
 import com.tuantran.jwt_authentication.payload.request.AddUserRequest;
 import com.tuantran.jwt_authentication.payload.request.AuthRequest;
-import com.tuantran.jwt_authentication.service.JwtService;
 import com.tuantran.jwt_authentication.service.UserService;
 import com.tuantran.jwt_authentication.service.implement.RoleServiceImplement;
+import com.tuantran.jwt_authentication.service.security.JwtService;
 
 @RestController
 @RequestMapping("/auth")

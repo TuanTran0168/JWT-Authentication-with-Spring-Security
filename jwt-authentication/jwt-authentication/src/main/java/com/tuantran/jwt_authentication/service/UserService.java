@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.tuantran.jwt_authentication.entity.User;
 import com.tuantran.jwt_authentication.repository.UserRepository;
+import com.tuantran.jwt_authentication.service.security.UserDetailsServiceCustom;
 
 @Service
 public class UserService implements UserDetailsService {

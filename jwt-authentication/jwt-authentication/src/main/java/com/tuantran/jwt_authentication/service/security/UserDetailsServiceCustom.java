@@ -1,4 +1,4 @@
-package com.tuantran.jwt_authentication.service;
+package com.tuantran.jwt_authentication.service.security;
 
 import java.util.Collection;
 import java.util.List;

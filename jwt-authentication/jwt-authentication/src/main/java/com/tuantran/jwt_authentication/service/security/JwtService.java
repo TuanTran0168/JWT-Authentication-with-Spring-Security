@@ -1,4 +1,4 @@
-package com.tuantran.jwt_authentication.service;
+package com.tuantran.jwt_authentication.service.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -69,6 +69,7 @@ public class JwtService {
 
     // Extract all claims from the token
     private Claims extractAllClaims(String token) {
+        System.err.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         return Jwts.parser()
                     .verifyWith(getSignKey())
                     .build()
