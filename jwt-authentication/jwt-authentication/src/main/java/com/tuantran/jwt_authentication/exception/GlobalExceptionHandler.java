@@ -2,6 +2,9 @@ package com.tuantran.jwt_authentication.exception;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
+
+import java.time.Instant;
+
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
 import org.springframework.security.access.AccessDeniedException;
@@ -18,8 +21,8 @@ public class GlobalExceptionHandler {
 
         if (exception instanceof BadCredentialsException) {
             errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(401), exception.getMessage());
+            errorDetail.setProperty("timestamp", Instant.now().toString());
             errorDetail.setProperty("description", "The username or password is incorrect");
-
             return errorDetail;
         }
 
@@ -48,6 +51,7 @@ public class GlobalExceptionHandler {
             errorDetail.setProperty("description", "Unknown internal server error.");
         }
 
+        errorDetail.setProperty("timestamp", Instant.now().toString());
         return errorDetail;
     }
 }
